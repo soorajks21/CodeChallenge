@@ -1,38 +1,51 @@
 const express = require("express");
+const User = require("../../models/Users");
 const router = express.Router();
-const users = require("../../public/Users");
+//const  = require("../../public/Users");
 const uuid = require("uuid");
 
 //Get all Users
-router.get("/", (req, res) => {
-  res.render("index", {
-    title: "Users",
-    users,
-  });
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find().lean();
+    console.log("users", users);
+
+    res.render("index", {
+      title: "Users",
+      users,
+    });
+  } catch (ex) {
+    res.status(500).send({ msg: "Server Error" });
+  }
+
   //res.json(users);
 });
 
 //Get user by id
 router.get("/:id", (req, res) => {
-  const found = users.some((user) => user.id === parseInt(req.params.id));
+  const found = User.some((user) => user.id === parseInt(req.params.id));
   if (found) {
-    res.json(users.filter((user) => user.id === parseInt(req.params.id)));
+    res.json(User.filter((user) => user.id === parseInt(req.params.id)));
   } else {
     res.status(400).json({ msg: "Member not found" });
   }
 });
 
 //adding user
-router.post("/", (req, res) => {
-  const newMember = {
-    id: uuid.v4(),
-    name: req.body.name,
-    email: req.body.email,
-    status: "active",
-  };
+router.post("/", async (req, res) => {
+  const { name, email, address } = req.body;
+  try {
+    user = new User({
+      name,
+      email,
+      address,
+    });
 
-  users.push(newMember);
-  res.json(users);
+    await user.save();
+    res.status(200).json({ msg: " User is added successully" });
+  } catch (ex) {
+    res.status(500).send({ msg: "Server Error" });
+  }
 });
 
 module.exports = router;
