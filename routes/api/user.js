@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   let pageNo = req.query.pageNo ? Number(req.query.pageNo) : 1;
   let skipNo = pageNo && pageNo > 0 ? (pageNo - 1) * limit : 0;
   try {
-    const users = await User.find().lean().skip(skipNo).limit(limit);
+    const users = await User.find().lean();
 
     res.render("index", {
       title: "Users",
@@ -46,10 +46,11 @@ router.post("/", async (req, res) => {
     });
 
     await user.save();
-    res.status(200).json({ msg: " User is added successully" });
+    res.redirect('/api/user');
   } catch (ex) {
     res.status(500).send({ msg: "Server Error" });
   }
 });
+
 
 module.exports = router;
