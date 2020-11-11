@@ -2,13 +2,17 @@ const express = require("express");
 const User = require("../../models/Users");
 const router = express.Router();
 //const  = require("../../public/Users");
+const config = require("config");
+const limit = config.get("paginationLimit");
 const uuid = require("uuid");
+const { listIndexes } = require("../../models/Users");
 
 //Get all Users
 router.get("/", async (req, res) => {
+  let pageNo = req.query.pageNo ? Number(req.query.pageNo) : 1;
+  let skipNo = pageNo && pageNo > 0 ? (pageNo - 1) * limit : 0;
   try {
-    const users = await User.find().lean();
-    console.log("users", users);
+    const users = await User.find().lean().skip(skipNo).limit(limit);
 
     res.render("index", {
       title: "Users",
