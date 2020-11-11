@@ -5,7 +5,11 @@ const uuid = require("uuid");
 
 //Get all Users
 router.get("/", (req, res) => {
-  res.json(users);
+  res.render("index", {
+    title: "Users",
+    users,
+  });
+  //res.json(users);
 });
 
 //Get user by id
