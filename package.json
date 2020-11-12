@@ -19,8 +19,12 @@
     "mongoose": "^5.10.13",
     "uuid": "^8.3.1"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "devDependencies": {
     "jest": "^26.6.3",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
   }
 }
