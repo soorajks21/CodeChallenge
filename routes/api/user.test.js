@@ -38,5 +38,3 @@ it("Should save user to database", async (done) => {
   expect(user.name).toBeTruthy();
   done();
 });
-
-
