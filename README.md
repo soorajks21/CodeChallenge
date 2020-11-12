@@ -19,4 +19,6 @@ $npm run test:watch
 
 ```
 
+You can hit the api through the url : http://localhost:5000/api/user
+
 
