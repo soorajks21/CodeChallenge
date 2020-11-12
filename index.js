@@ -10,9 +10,13 @@ app.set("view engine", "handlebars");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/api/user", require("./routes/api/user"));
+
+require('./routes/routeList')(app);
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
+const server = app.listen(PORT, () =>
+  console.log(`Server started on Port ${PORT}`)
+);
+
 module.exports = server;
