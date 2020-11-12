@@ -9,6 +9,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  tone: {
+    type: String,
+  },
   address: {
     type: String,
     required: true,

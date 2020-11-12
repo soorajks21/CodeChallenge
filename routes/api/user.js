@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
   let skipNo = pageNo && pageNo > 0 ? (pageNo - 1) * limit : 0;
   try {
     const users = await User.find().lean();
-
     res.render("index", {
       title: "Users",
       users,
@@ -38,19 +37,27 @@ router.get("/:id", (req, res) => {
 //adding user
 router.post("/", async (req, res) => {
   const { name, email, address } = req.body;
+  const tone = getTone();
+
   try {
     user = new User({
       name,
       email,
+      tone,
       address,
     });
 
     await user.save();
-    res.redirect('/api/user');
+    res.redirect("/api/user");
   } catch (ex) {
     res.status(500).send({ msg: "Server Error" });
   }
 });
 
+const getTone = () => {
+  const toneData = ["humorous", "ironic", "cynical"];
+  const random = Math.floor(Math.random() * toneData.length);
+  return toneData[random];
+};
 
 module.exports = router;
