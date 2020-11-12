@@ -1,3 +1,4 @@
+const { PromiseProvider } = require("mongoose");
 let uniqueId = require("./api/uniqueId");
 let user = require("./api/user");
 

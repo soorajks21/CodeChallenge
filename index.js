@@ -11,7 +11,10 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-require('./routes/routeList')(app);
+app.get("/", function (req, res) {
+  res.redirect("/api/user");
+});
+require("./routes/routeList")(app);
 
 const PORT = process.env.PORT || 5000;
 
