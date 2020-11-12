@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 
 const User = require("../../models/Users");
 beforeAll(async () => {
-    const db = "mongodb+srv://sooraj:june@345@usermanagement.7ptzc.mongodb.net/FinnAi?retryWrites=true&w=majority";
+  const db =
+    "mongodb+srv://sooraj:june@345@usermanagement.7ptzc.mongodb.net/FinnAi?retryWrites=true&w=majority";
   await mongoose.connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -15,7 +16,13 @@ beforeAll(async () => {
 
 it("gets the test endpoint", async (done) => {
   const response = await request.get("/api/user");
-    expect(response).toBeTruthy();
+  expect(response).toBeTruthy();
+  done();
+});
+
+it("gets the uniqueId", async (done) => {
+  const response = await request.get("/api/id");
+  expect(response).toBeTruthy();
   done();
 });
 

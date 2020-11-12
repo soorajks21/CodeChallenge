@@ -16,6 +16,10 @@ app.get("/", function (req, res) {
 });
 require("./routes/routeList")(app);
 
+app.get("*", function (req, res) {
+  res.render("404");
+});
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () =>
